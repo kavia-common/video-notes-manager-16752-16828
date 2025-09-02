@@ -1,54 +1,54 @@
-# Remotion video
+# Notes App Frontend (Remotion)
 
-<p align="center">
-  <a href="https://github.com/remotion-dev/logo">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://github.com/remotion-dev/logo/raw/main/animated-logo-banner-dark.gif">
-      <img alt="Animated Remotion Logo" src="https://github.com/remotion-dev/logo/raw/main/animated-logo-banner-light.gif">
-    </picture>
-  </a>
-</p>
+Responsive, light-themed notes manager that displays notes as dynamic video slides using Remotion.
 
-Welcome to your Remotion project!
+## Features
+- Add, edit, delete notes
+- Dynamic video slides generated from notes
+- Play and export as a video (CLI Node rendering)
+- Responsive UI: Top nav (login/logout), sidebar for notes, main editor + video preview
+- Color theme:
+  - Primary: #3b82f6
+  - Secondary: #6366f1
+  - Accent: #f59e42
 
-## Commands
+## Getting Started
 
-**Install Dependencies**
-
-```console
+Install dependencies:
+```bash
 npm i
 ```
 
-**Start Preview**
-
-```console
+Start Remotion Studio:
+```bash
 npm run dev
 ```
 
-**Render video**
+Open the app in the preview and start adding notes. Notes are stored in localStorage for now.
 
-```console
-npx remotion render
+## Exporting a Video
+
+This project prepares export via Remotion Node APIs. In CI/local Node:
+```bash
+npm run render
+```
+Or:
+```bash
+npx remotion render src/index.ts NotesVideo out/notes-video.mp4 --props='{"title":"My Notes Presentation"}'
 ```
 
-**Upgrade Remotion**
+Note: In the browser Studio, exporting triggers a message explaining to run the CLI.
 
-```console
-npx remotion upgrade
-```
+## Backend Integration
 
-## Docs
+API calls are mocked and persisted in localStorage. When the backend is ready, replace `src/api/notesApi.ts` with actual HTTP requests and wire auth in `src/api/auth.ts`.
 
-Get started with Remotion by reading the [fundamentals page](https://www.remotion.dev/docs/the-fundamentals).
+## Code Structure
 
-## Help
-
-We provide help on our [Discord server](https://discord.gg/6VzzNDwUwV).
-
-## Issues
-
-Found an issue with Remotion? [File an issue here](https://github.com/remotion-dev/remotion/issues/new).
-
-## License
-
-Note that for some entities a company license is needed. [Read the terms here](https://github.com/remotion-dev/remotion/blob/main/LICENSE.md).
+- src/app/App.tsx: Main layout and orchestration
+- src/components/*: UI components
+- src/hooks/useNotes.ts: Notes state, CRUD, export, auth mocks
+- src/video/NotesVideo.tsx: Remotion composition rendering slides
+- src/theme/ThemeContext.tsx: Theme colors
+- src/styles/global.css: Global styles
+- src/index.ts, src/Root.tsx: Remotion entry and composition registration

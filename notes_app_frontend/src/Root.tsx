@@ -1,44 +1,39 @@
 import { Composition } from "remotion";
-import { HelloWorld, myCompSchema } from "./HelloWorld";
-import { Logo, myCompSchema2 } from "./HelloWorld/Logo";
+import { NotesVideo, notesVideoSchema } from "./video/NotesVideo";
+// Ensure UI App gets bundled and mounted when running in the browser studio
+import "./app/bootstrap";
 
-// Each <Composition> is an entry in the sidebar!
-
+/**
+ * RemotionRoot:
+ * Registers our NotesVideo composition which renders the user's notes
+ * as animated slides. In Remotion Studio, you can tweak props via Controls.
+ */
 export const RemotionRoot: React.FC = () => {
   return (
     <>
       <Composition
-        // You can take the "id" to render a video:
-        // npx remotion render src/index.ts <id> out/video.mp4
-        id="HelloWorld"
-        component={HelloWorld}
-        durationInFrames={150}
+        id="NotesVideo"
+        component={NotesVideo}
+        durationInFrames={600} // default length, will be overridden by notes length dynamically
         fps={30}
         width={1920}
         height={1080}
-        // You can override these props for each render:
-        // https://www.remotion.dev/docs/parametrized-rendering
-        schema={myCompSchema}
+        schema={notesVideoSchema}
         defaultProps={{
-          titleText: "Welcome to Remotion",
-          titleColor: "#000000",
-          logoColor1: "#91EAE4",
-          logoColor2: "#86A8E7",
-        }}
-      />
-
-      {/* Mount any React component to make it show up in the sidebar and work on it individually! */}
-      <Composition
-        id="OnlyLogo"
-        component={Logo}
-        durationInFrames={150}
-        fps={30}
-        width={1920}
-        height={1080}
-        schema={myCompSchema2}
-        defaultProps={{
-          logoColor1: "#91dAE2" as const,
-          logoColor2: "#86A8E7" as const,
+          title: "My Notes Presentation",
+          notes: [
+            { id: "1", title: "Welcome", content: "This is your notes video.", color: "#3b82f6" },
+            { id: "2", title: "Second Slide", content: "Edit notes on the left to update video.", color: "#6366f1" },
+            { id: "3", title: "Export", content: "Use Export button to render a video.", color: "#f59e42" },
+          ],
+          theme: {
+            primary: "#3b82f6",
+            secondary: "#6366f1",
+            accent: "#f59e42",
+            background: "#ffffff",
+            text: "#0f172a"
+          },
+          secondsPerNote: 4
         }}
       />
     </>

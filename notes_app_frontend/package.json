@@ -1,12 +1,13 @@
 {
   "name": "remotion",
   "version": "1.0.0",
-  "description": "My Remotion video",
+  "description": "Notes app frontend with Remotion",
   "repository": {},
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
     "@remotion/cli": "4.0.286",
+    "@remotion/player": "4.0.286",
     "@remotion/zod-types": "4.0.286",
     "react": "19.0.0",
     "react-dom": "19.0.0",
@@ -14,8 +15,11 @@
     "zod": "3.22.3"
   },
   "devDependencies": {
+    "@remotion/bundler": "4.0.286",
     "@remotion/eslint-config-flat": "4.0.286",
+    "@remotion/renderer": "4.0.286",
     "@types/react": "19.0.0",
+    "@types/react-dom": "19.0.2",
     "@types/web": "0.0.166",
     "@typescript-eslint/eslint-plugin": "^8.29.0",
     "@typescript-eslint/parser": "^8.29.0",
@@ -26,6 +30,7 @@
   "scripts": {
     "dev": "remotion studio",
     "build": "remotion bundle",
+    "render": "remotion render src/index.ts NotesVideo out/notes-video.mp4 --props='{\"title\":\"My Notes Presentation\"}'",
     "upgrade": "remotion upgrade",
     "lint": "eslint src && tsc"
   }
